@@ -21,25 +21,67 @@ describe('AppController', () => {
   });
 
   describe('replacer', () => {
-    it('should return the same object with all value references of "dog" replaced with "cat"', () => {
-      const input = {
-        name: 'dog',
-        attributes: {
-          review: 'a dog is a good pet',
-          example: {
-            name: 'dog',
+    it('should return the same input with all value references of "dog" replaced with "cat"', () => {
+      const input = [
+        {
+          name: 'dog',
+          attributes: {
+            review: 'a dog is a good pet',
+            example: [
+              {
+                name: 'dog',
+                nested: {
+                  nested: {
+                    name: 'dog',
+                    review: 'a dog is a good pet',
+                    nested: {
+                      name: 'dog',
+                      review: 'a dog is a good pet',
+                    },
+                  },
+                },
+                tested: {
+                  nested: {
+                    nested: {
+                      name: 'dog',
+                    },
+                  },
+                },
+              },
+            ],
           },
         },
-      };
-      const output = {
-        name: 'cat',
-        attributes: {
-          review: 'a dog is a good pet',
-          example: {
-            name: 'cat',
+      ];
+      const output = [
+        {
+          name: 'cat',
+          attributes: {
+            review: 'a dog is a good pet',
+            example: [
+              {
+                name: 'cat',
+                nested: {
+                  nested: {
+                    name: 'cat',
+                    review: 'a dog is a good pet',
+                    nested: {
+                      name: 'cat',
+                      review: 'a dog is a good pet',
+                    },
+                  },
+                },
+                tested: {
+                  nested: {
+                    nested: {
+                      name: 'cat',
+                    },
+                  },
+                },
+              },
+            ],
           },
         },
-      };
+      ];
       expect(appController.replacer(input)).toEqual(output);
     });
 
